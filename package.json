@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "import-export": "^1.0.1"
+  },
+  "type": "module"
+}

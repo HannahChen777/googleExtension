@@ -1,0 +1,27 @@
+{
+    "name": "點名嚕",
+    "version": "1.0.0",
+    "description": "list people who is abscent",
+    "manifest_version": 3,
+    "author": "Hannah",
+    "action":{
+        "default_popup": "popup.html",
+        "default_title": "Roll Call"
+    },
+    "background": {
+        "service_worker": "background_0801.js"
+    },
+    "icons": {
+        "128": "./images/shibaSunglass.png"
+    },
+    "options_page": "options.html",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting",
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://meet.google.com/*"
+    ]
+}
