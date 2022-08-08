@@ -14,7 +14,7 @@ var connect = (portName, portPassword) => {
   port.onMessage.addListener(async function(msg) {
     console.log('receive message from backend');
     if(msg.status == 'urlIsGoogleMeet'){
-      let data = await fetchParticipants();
+      let data = await fetchParticipantsByDOM();
       console.log('you got me');
       console.log(data);
       //document.getElementById('data').innerText = ;
@@ -32,8 +32,10 @@ var connect = (portName, portPassword) => {
 //participant
 //document.querySelector('.m3Uzve .AE8xFb .cxdMu .SKWIhd .EY8ABd-OWXEXe-TAWMXe');
 
-function fetchParticipants(){
+function fetchParticipantsByDOM(){
   var abscentsFromDom = document.querySelectorAll('.m3Uzve .AE8xFb .cxdMu .SKWIhd');
+  console.log('-------abscentees-------');
+  console.log(abscentees);
   var abscentees = [];
   abscentsFromDom.forEach(function(item){
       let isStatus = item.querySelector('.EY8ABd-OWXEXe-TAWMXe');
@@ -41,7 +43,7 @@ function fetchParticipants(){
       if(isStatus){
           let statusOfParticipant = isStatus.innerText;
           console.log(statusOfParticipant);
-          if(statusOfParticipant == '沒有回覆' || '已接受'){
+          if(statusOfParticipant == '沒有回覆' || '已接受' || '不確定'){
             let participant = item.querySelector('.zSX24d .jKwXVe .zWGUib').innerText;
             abscentees.push(participant);
           }
@@ -52,6 +54,6 @@ function fetchParticipants(){
 }
 
 
-//url fetching problem
-
-//backend connect with frontend
+//Questions:
+//1. url fetching problem
+//2. fetchParticipantsByDOM get undefined
