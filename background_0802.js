@@ -1,13 +1,31 @@
 console.log('from background');
+function test456(test){
+    // doing thing to test
+    // int to str
+    
+
+}
 
 //when click the button on the popup.html > getCurrentTab
 
 async function getUrl(){
     let queryOptions = { active: true, lastFocusedWindow: true };
+
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions) || '';  //tab is an array
+    console.log("tab execute js")
     console.log(tab);
     if(tab){
+        let result13 = chrome.scripting.executeScript({
+            target: {tabId : tab.id},
+            files: ["test.js"]
+        }).then(function(test){
+            testR = "123";
+            console.log({test17: test});
+            console.log({testR: testR});
+
+        })
+        console.log({result13: result13})
         let currentUrl = await tab.url;
         console.log(currentUrl);
         return currentUrl;

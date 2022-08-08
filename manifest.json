@@ -9,7 +9,7 @@
         "default_title": "Roll Call"
     },
     "background": {
-        "service_worker": "background_0801.js"
+        "service_worker": "background_0802.js"
     },
     "icons": {
         "128": "./images/shibaSunglass.png"

@@ -11,12 +11,14 @@ btnClick.addEventListener('click', function(){
 var connect = (portName, portPassword) => {
   var port = chrome.runtime.connect(portName);
   port.postMessage(portPassword);
-  port.onMessage.addListener(async function(msg) {
+  port.onMessage.addListener(async function(msg, sender, sendResponse) {
     console.log('receive message from backend');
     if(msg.status == 'urlIsGoogleMeet'){
-      let data = await fetchParticipantsByDOM();
-      console.log('you got me');
-      console.log(data);
+      let testHtml = document.all[0].outerHTML;
+      console.log({testHtml: testHtml});
+      // let data = await fetchParticipantsByDOM();
+      // console.log('you got me');
+      // console.log(data);
       //document.getElementById('data').innerText = ;
     }
     else if(msg.status == 'urlNotGoogleMeet'){

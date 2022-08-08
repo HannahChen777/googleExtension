@@ -30,7 +30,7 @@ async function isUrlGoogleMeet(){
 chrome.runtime.onConnect.addListener(function(port){
     if(port.name == 'foregroundRequest'){
         console.log('received successfully from port \'foregroundRequest\'');
-        port.onMessage.addListener(async function(msg){
+        port.onMessage.addListener(async function(msg, sender, sendResponse){
             if(msg.password == 'getUrl'){
                 console.log('password is correct');
                 let url = await isUrlGoogleMeet();
