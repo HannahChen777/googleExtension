@@ -1,17 +1,16 @@
 function fetchParticipantsByDOM(){
     var abscentsFromDom = document.querySelectorAll('.m3Uzve .AE8xFb .cxdMu .SKWIhd');
     console.log('-------abscentees-------');
-    console.log(abscentees);
     var abscentees = [];
     abscentsFromDom.forEach(function(item){
         let isStatus = item.querySelector('.EY8ABd-OWXEXe-TAWMXe');
-        //'isStatus == null' means yourself
-        if(isStatus){
+        if(isStatus){  //if('isStatus == null') means yourself
             let statusOfParticipant = isStatus.innerText;
-            console.log(statusOfParticipant);
-            if(statusOfParticipant == '沒有回覆' || '已接受' || '不確定'){
-              let participant = item.querySelector('.zSX24d .jKwXVe .zWGUib').innerText;
-              abscentees.push(participant);
+            if(statusOfParticipant == '沒有回覆' || statusOfParticipant == '已接受' || statusOfParticipant == '不確定'){
+                console.log(statusOfParticipant);
+                let participant = item.querySelector('.zSX24d .jKwXVe .zWGUib').innerText;
+                console.log(participant);
+                abscentees.push(participant);
             };
         };
     })
