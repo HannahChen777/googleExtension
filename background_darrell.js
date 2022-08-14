@@ -16,7 +16,7 @@ async function getUrl(){
     if(tab){
         let result13 = chrome.scripting.executeScript({
             target: {tabId : tab.id},
-            files: ["test.js"]
+            files: ["fetchParticipant.js"]
         }).then(function(test){
             testR = "123";
             console.log({test17: test});

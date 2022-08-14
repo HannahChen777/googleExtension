@@ -6,21 +6,35 @@ async function getUrl(){
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions) || '';  //tab is an array
-    if(!tab){
-        console.log('can\'t fetch url');
+    console.log({tab: tab});
+    console.log({url: tab.url});
+    if(tab && tab.url){
+        let isUrl = await isUrlGoogleMeet(tab.url);
+        console.log('tab found');
+        if(isUrl){
+            console.log('url valid');
+            let result = await chrome.scripting.executeScript({ //promise
+                target: {tabId: tab.id},
+                files: [ 'fetchParticipant.js'] 
+            },
+            (result)=>{
+                console.log({result: result});
+                return result;
+            })
+        } else {
+            console.log('Here\'s not google meet');
+            return;
+        }
+    } else {
+        console.log('Can\'t fetch tab');
         return;
     }
-    console.log(tab);
-    let currentUrl = await tab.url;
-    console.log(currentUrl);
-    return currentUrl;
 }
 
-async function isUrlGoogleMeet(){
-    let currentUrl = await getUrl();
-    if(currentUrl){
-        let isUrlGoogleMeet = await currentUrl.startsWith('https://meet.google.com/');
-        console.log(isUrlGoogleMeet);
+async function isUrlGoogleMeet(url){
+    if(url){
+        let isUrlGoogleMeet = await url.startsWith('https://meet.google.com/');
+        console.log({isUrlGoogleMeet: isUrlGoogleMeet});
         return isUrlGoogleMeet;
     }
     return;
@@ -33,7 +47,7 @@ chrome.runtime.onConnect.addListener(function(port){
         port.onMessage.addListener(async function(msg, sender, sendResponse){
             if(msg.password == 'getUrl'){
                 console.log('password is correct');
-                let url = await isUrlGoogleMeet();
+                let url = await getUrl();
                 if(url){
                     console.log('valid url');
                     port.postMessage({ status: 'urlIsGoogleMeet'});
