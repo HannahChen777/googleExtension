@@ -1,4 +1,8 @@
+//you + participants
+//document.querySelector('.m3Uzve .AE8xFb .cxdMu .SKWIhd');
 
+//participant
+//document.querySelector('.m3Uzve .AE8xFb .cxdMu .SKWIhd .EY8ABd-OWXEXe-TAWMXe');
 
 function fetchParticipantsByDOM(){
     let knownStatus = [
@@ -11,20 +15,23 @@ function fetchParticipantsByDOM(){
     ];
 
     var abscentsFromDom = document.querySelectorAll('.m3Uzve .AE8xFb .cxdMu .SKWIhd');
-    console.log({abscentsFromDom: abscentsFromDom})
     console.log('-------abscentees-------');
     var abscentees = [];
+
     abscentsFromDom.forEach(function(item){
-        let imgDom = item.querySelector("div.BEaVse img");
-        if(!imgDom) return;
-        let statusOfParticipant = imgDom.getAttribute("aria-label");
+        let isStatus = item.querySelector('.EY8ABd-OWXEXe-TAWMXe');
+        if(!isStatus) //if('isStatus == null') means yourself
+            return;
+        let statusOfParticipant = isStatus.innerText;
         if(knownStatus.indexOf(statusOfParticipant)){
+            console.log(statusOfParticipant);
             let participant = item.querySelector('.zSX24d .jKwXVe .zWGUib').innerText;
             console.log(participant);
             abscentees.push(participant);
-        }
+        };
     })
     console.log(abscentees);
     return abscentees;
 }
+
 fetchParticipantsByDOM();

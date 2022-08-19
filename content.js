@@ -4,7 +4,7 @@ var btnClick = document.getElementById('btn_click');
 
 btnClick.addEventListener('click', function(){
   let portName = { name: "foregroundRequest" };
-  let portPassword = { password: 'getUrl' };
+  let portPassword = { password: 'getAbscentees' };
   connect(portName, portPassword);
 });
 
@@ -14,8 +14,9 @@ var connect = (portName, portPassword) => {
   port.onMessage.addListener(async function(msg, sender, sendResponse) {
     console.log('receive message from backend');
     if(msg.status == 'urlIsGoogleMeet'){
-      let testHtml = document.all[0].outerHTML;
-      console.log({testHtml: testHtml});
+      console.log('it works!');
+      //let testHtml = document.all[0].outerHTML;
+      //console.log({testHtml: testHtml});
       // let data = await fetchParticipantsByDOM();
       // console.log('you got me');
       // console.log(data);

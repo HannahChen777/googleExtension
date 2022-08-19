@@ -2,7 +2,7 @@ console.log('from background');
 
 //when click the button on the popup.html > getCurrentTab
 
-async function getUrl(){
+async function getAbscentees(){
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions) || '';  //tab is an array
@@ -15,12 +15,9 @@ async function getUrl(){
             console.log('url valid');
             let result = await chrome.scripting.executeScript({ //promise
                 target: {tabId: tab.id},
-                files: [ 'fetchParticipant.js'] 
-            },
-            (result)=>{
-                console.log({result: result});
-                return result;
+                files: [ 'fetchParticipant.js']
             })
+            return result;
         } else {
             console.log('Here\'s not google meet');
             return;
@@ -45,10 +42,11 @@ chrome.runtime.onConnect.addListener(function(port){
     if(port.name == 'foregroundRequest'){
         console.log('received successfully from port \'foregroundRequest\'');
         port.onMessage.addListener(async function(msg, sender, sendResponse){
-            if(msg.password == 'getUrl'){
+            if(msg.password == 'getAbscentees'){
                 console.log('password is correct');
-                let url = await getUrl();
-                if(url){
+                let abscenteesArray = await getAbscentees();
+                console.log(abscenteesArray);
+                if(abscenteesArray){
                     console.log('valid url');
                     port.postMessage({ status: 'urlIsGoogleMeet'});
                 }
