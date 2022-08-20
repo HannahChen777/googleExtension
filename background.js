@@ -1,42 +1,36 @@
 console.log('from background');
 
-//when click the button on the popup.html > getCurrentTab
-
-async function getAbscentees(){
+//when clicking the 'start' button >> judge the url is googlemeet
+async function getUrlTab(){
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions) || '';  //tab is an array
-    console.log({tab: tab});
-    console.log({url: tab.url});
-    if(tab && tab.url){
-        let isUrl = await isUrlGoogleMeet(tab.url);
-        console.log('tab found');
-        if(isUrl){
-            console.log('url valid');
-            let result = await chrome.scripting.executeScript({ //promise
-                target: {tabId: tab.id},
-                files: [ 'fetchParticipant.js']
-            })
-            return result;
-        } else {
-            console.log('Here\'s not google meet');
-            return;
-        }
-    } else {
-        console.log('Can\'t fetch tab');
+    if(!tab || !tab.url)
         return;
-    }
+    let isGoogleMeet = await isUrlGoogleMeet(tab.url);
+    if(!isGoogleMeet)
+        return;
+    return tab;
+}
+
+async function fetchParticipantObject(urlTab){
+    if(!urlTab)
+    return;
+    let result = await chrome.scripting.executeScript({
+        target: {tabId: urlTab.id},
+        files: [ 'fetchParticipant.js']
+    })
+    console.log(result);
+    return result;
 }
 
 async function isUrlGoogleMeet(url){
-    if(url){
-        let isUrlGoogleMeet = await url.startsWith('https://meet.google.com/');
-        console.log({isUrlGoogleMeet: isUrlGoogleMeet});
-        return isUrlGoogleMeet;
-    }
-    return;
+    if(!url)
+        return;
+    let isUrlGoogleMeet = await url.startsWith('https://meet.google.com/');
+    console.log({isUrlGoogleMeet: isUrlGoogleMeet});
+    return isUrlGoogleMeet;
 }
-
 
 chrome.runtime.onConnect.addListener(function(port){
     if(port.name == 'foregroundRequest'){
@@ -44,14 +38,14 @@ chrome.runtime.onConnect.addListener(function(port){
         port.onMessage.addListener(async function(msg, sender, sendResponse){
             if(msg.password == 'getAbscentees'){
                 console.log('password is correct');
-                let abscenteesArray = await getAbscentees();
-                console.log(abscenteesArray);
-                if(abscenteesArray){
-                    console.log('valid url');
-                    port.postMessage({ status: 'urlIsGoogleMeet'});
-                }
-                else {
+                let tab = await getUrlTab();
+                if(!tab){
                     port.postMessage({ status: 'urlNotGoogleMeet'});
+                }
+                else{
+                    let abscenteesArray = await fetchParticipantObject(tab);
+                    console.log(abscenteesArray);
+                    port.postMessage({ status: 'urlIsGoogleMeet'});
                 }
             } 
         })
