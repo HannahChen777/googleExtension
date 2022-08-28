@@ -45,7 +45,12 @@ chrome.runtime.onConnect.addListener(function(port){
                 else{
                     let abscenteesArray = await fetchParticipantObject(tab);
                     console.log(abscenteesArray);
-                    port.postMessage({ status: 'urlIsGoogleMeet'});
+                    port.postMessage(
+                        { 
+                            status: 'urlIsGoogleMeet',
+                            data: abscenteesArray
+                        }
+                    );
                 }
             } 
         })

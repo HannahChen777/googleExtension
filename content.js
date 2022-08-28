@@ -15,6 +15,10 @@ var connect = (portName, portPassword) => {
     console.log('receive message from backend');
     if(msg.status == 'urlIsGoogleMeet'){
       console.log('it works!');
+      let abscenteesArray = msg.data[0].result;
+
+      createCheckBoxOfAbscentees();
+
       //let testHtml = document.all[0].outerHTML;
       //console.log({testHtml: testHtml});
       // let data = await fetchParticipantsByDOM();
@@ -28,35 +32,49 @@ var connect = (portName, portPassword) => {
   })
 }
 
+function createCheckBoxOfAbscentees(){
+  var contentInDOM = document.getElementsByClassName('content'); //HTMLCollection
+  
+  let checkbox1 = document.createElement('input');
+  checkbox1.type = 'checkbox';
+  checkbox1.id = 'abscentee1';
 
-//you + participants
-//document.querySelector('.m3Uzve .AE8xFb .cxdMu .SKWIhd');
+  let label1 = document.createElement('label');
+  label1.htmlFor = 'abscentee1';
 
-//participant
-//document.querySelector('.m3Uzve .AE8xFb .cxdMu .SKWIhd .EY8ABd-OWXEXe-TAWMXe');
+  let abscentee1 = document.createTextNode('Bello');
+  label1.appendChild(abscentee1);
+  console.log(label1);
 
-function fetchParticipantsByDOM(){
-  var abscentsFromDom = document.querySelectorAll('.m3Uzve .AE8xFb .cxdMu .SKWIhd');
-  console.log('-------abscentees-------');
-  console.log(abscentees);
-  var abscentees = [];
-  abscentsFromDom.forEach(function(item){
-      let isStatus = item.querySelector('.EY8ABd-OWXEXe-TAWMXe');
-      //'isStatus == null' means yourself
-      if(isStatus){
-          let statusOfParticipant = isStatus.innerText;
-          console.log(statusOfParticipant);
-          if(statusOfParticipant == '沒有回覆' || '已接受' || '不確定'){
-            let participant = item.querySelector('.zSX24d .jKwXVe .zWGUib').innerText;
-            abscentees.push(participant);
-          }
-      };
-  })
-  console.log(abscentees);
-  return abscentees;
+  contentInDOM[0].appendChild(checkbox1);
+  contentInDOM[0].appendChild(label1);
+
+
+  console.log(contentInDOM[0]);
+
+  // for(let i = 0; i < abscenteesArray.length; i++){
+  //   var checkbox,[i] = document.createElement('input');
+
+  // }
+  // var checkboxInDOM = document.createElement('input');
+  // checkboxInDOM.type = 'checkbox';
+
+
+
 }
 
+// var checkbox1 = document.createElement('input');
+// checkbox1.type = 'checkbox';
+// checkbox1.name = 'checkbox1';
+// checkbox1.id = 'abscentee1';
 
-//Questions:
-//1. url fetching problem
-//2. fetchParticipantsByDOM get undefined
+// var label1 = document.createElement('label');
+// label1.htmlFor = 'abscentee1';
+
+// var checkbox2 = document.createElement('input');
+// checkbox2.type = 'checkbox';
+// checkbox2.name = 'checkbox2';
+// checkbox2.id = 'abscentee2';
+
+// var label2 = document.createElement('label');
+// label2.htmlFor = 'abscentee2';
