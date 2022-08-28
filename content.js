@@ -15,9 +15,9 @@ var connect = (portName, portPassword) => {
     console.log('receive message from backend');
     if(msg.status == 'urlIsGoogleMeet'){
       console.log('it works!');
-      let abscenteesArray = msg.data[0].result;
+      let abscenteesArray = await msg.data[0].result;
 
-      createCheckBoxOfAbscentees();
+      createCheckBoxOfAbscentees(abscenteesArray);
 
       //let testHtml = document.all[0].outerHTML;
       //console.log({testHtml: testHtml});
@@ -32,49 +32,26 @@ var connect = (portName, portPassword) => {
   })
 }
 
-function createCheckBoxOfAbscentees(){
+function createCheckBoxOfAbscentees(array){
+
   var contentInDOM = document.getElementsByClassName('content'); //HTMLCollection
   
-  let checkbox1 = document.createElement('input');
-  checkbox1.type = 'checkbox';
-  checkbox1.id = 'abscentee1';
+  for(var i = 0; i < array.length; i++){
+    let checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = 'abscentee' + [i];
+    checkbox.checked = 'checked';
 
-  let label1 = document.createElement('label');
-  label1.htmlFor = 'abscentee1';
+    let label = document.createElement('label');
+    label.htmlFor = 'abscentee' + [i];
 
-  let abscentee1 = document.createTextNode('Bello');
-  label1.appendChild(abscentee1);
-  console.log(label1);
+    let abscentee = document.createTextNode(array[i]);
+    label.appendChild(abscentee);
 
-  contentInDOM[0].appendChild(checkbox1);
-  contentInDOM[0].appendChild(label1);
-
-
-  console.log(contentInDOM[0]);
-
-  // for(let i = 0; i < abscenteesArray.length; i++){
-  //   var checkbox,[i] = document.createElement('input');
-
-  // }
-  // var checkboxInDOM = document.createElement('input');
-  // checkboxInDOM.type = 'checkbox';
-
-
-
+    contentInDOM[0].appendChild(checkbox);
+    contentInDOM[0].appendChild(label);
+    contentInDOM[0].appendChild(document.createElement('br'));
+    console.log(contentInDOM[0]);
+  }
 }
 
-// var checkbox1 = document.createElement('input');
-// checkbox1.type = 'checkbox';
-// checkbox1.name = 'checkbox1';
-// checkbox1.id = 'abscentee1';
-
-// var label1 = document.createElement('label');
-// label1.htmlFor = 'abscentee1';
-
-// var checkbox2 = document.createElement('input');
-// checkbox2.type = 'checkbox';
-// checkbox2.name = 'checkbox2';
-// checkbox2.id = 'abscentee2';
-
-// var label2 = document.createElement('label');
-// label2.htmlFor = 'abscentee2';
