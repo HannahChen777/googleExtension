@@ -6,12 +6,12 @@
 
 function fetchParticipantsByDOM(){
     let knownStatus = [
-        "Declined",
         "No response",
         "Accepted",
         "沒有回覆",
         "已接受",
         "不確定"
+        //lack of "not sure"
     ];
 
     var abscentsFromDom = document.querySelectorAll('.m3Uzve .AE8xFb .cxdMu .SKWIhd');
@@ -23,7 +23,7 @@ function fetchParticipantsByDOM(){
         if(!isStatus) //if('isStatus == null') means yourself
             return;
         let statusOfParticipant = isStatus.innerText;
-        if(knownStatus.indexOf(statusOfParticipant)){
+        if(knownStatus.includes(statusOfParticipant)){
             console.log(statusOfParticipant);
             let participant = item.querySelector('.zSX24d .jKwXVe .zWGUib').innerText;
             console.log(participant);
