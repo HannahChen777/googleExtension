@@ -36,8 +36,20 @@ function createCheckBoxOfAbscentees(array){
 
   var contentInDOM = document.getElementsByClassName('content'); //HTMLCollection
   
+  let isForm = document.getElementById('form') || '';
+  console.log({isForm: isForm});
+
+  if(isForm){
+    contentInDOM[0].removeChild(isForm);
+    console.log({contentInDOM: contentInDOM[0]});
+  }
+  
+  let form = document.createElement('form');
+  form.id = 'form';
+
   for(var i = 0; i < array.length; i++){
     let checkbox = document.createElement('input');
+
     checkbox.type = 'checkbox';
     checkbox.id = 'abscentee' + [i];
     checkbox.checked = 'checked';
@@ -48,10 +60,11 @@ function createCheckBoxOfAbscentees(array){
     let abscentee = document.createTextNode(array[i]);
     label.appendChild(abscentee);
 
-    contentInDOM[0].appendChild(checkbox);
-    contentInDOM[0].appendChild(label);
-    contentInDOM[0].appendChild(document.createElement('br'));
+    form.appendChild(checkbox);
+    form.appendChild(label);
+    form.appendChild(document.createElement('br'));
+
+    contentInDOM[0].appendChild(form);
     console.log(contentInDOM[0]);
   }
 }
-
