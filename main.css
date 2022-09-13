@@ -64,18 +64,22 @@ html body {
     width: 29%;
 }
 
-#btn_click {
+
+#btn_click_start, #btn_click_slack {
     font-family: var(--font-family);
-    background-color: beige;
+    margin-right: .5rem;
+    border-radius: .25rem;
+}
+
+#btn_click_start {
+    background-color: bisque;
     border: .15rem solid burlywood;
 }
 
-#btn_click:hover{
-    background-color: bisque;
-}
-
-#btn_click:active {
-    background-color: beige;
+#btn_click_slack {
+    background-color: #DACDE3;
+    border: .15rem solid #9A7CB1;
+    display: none;
 }
 
 
@@ -86,6 +90,23 @@ html body {
     justify-content: center;
     align-items: center;
 }
+
+#btn_click_start:hover {
+    background-color: beige;
+}
+
+#btn_click_start:active {
+    background-color: bisque;
+}
+
+#btn_click_slack:hover {
+    background-color: #ECE3F3;
+}
+
+#btn_click_slack:active {
+    background-color: beige;
+}
+
 
 
 /* footer */

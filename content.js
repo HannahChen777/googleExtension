@@ -1,6 +1,6 @@
 console.log("from foreground");
 
-var btnClick = document.getElementById('btn_click');
+var btnClick = document.getElementById('btn_click_start');
 
 btnClick.addEventListener('click', function(){
   let portName = { name: "foregroundRequest" };
@@ -18,6 +18,7 @@ var connect = (portName, portPassword) => {
       let abscenteesArray = await msg.data[0].result;
 
       createCheckBoxOfAbscentees(abscenteesArray);
+      showBtnSlack();
 
       //let testHtml = document.all[0].outerHTML;
       //console.log({testHtml: testHtml});
@@ -30,6 +31,13 @@ var connect = (portName, portPassword) => {
       document.getElementById('data').innerText = '這裡不4 google meet耶';
     }
   })
+}
+
+function showBtnSlack(){
+  let attributesOfBtnSlack = document.getElementById('btn_click_slack');
+  attributesOfBtnSlack.style.display = 'inline-block';
+  console.log('HiiiBtnSlack');
+  console.log(attributesOfBtnSlack.style.display);
 }
 
 function createCheckBoxOfAbscentees(array){
@@ -68,3 +76,4 @@ function createCheckBoxOfAbscentees(array){
     console.log(contentInDOM[0]);
   }
 }
+
