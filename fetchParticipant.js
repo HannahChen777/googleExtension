@@ -6,19 +6,23 @@
 
 function clickBtnOfParticipants(){
     console.log('clickBtnOfParticipants');
-    let isBox = document.querySelector('.WUFI9b');  // to get the whole box of btnParticipants
-    
-    if(!isBox.classList.contains('qdulke'));  // to judge if the box is opened  //true: closed; false:open
-        return;
-    //need to fix(null)
 
     let btns = document.getElementsByClassName('VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ JsuyRc boDUxc') || '';
     if(!btns)
         return;
 
+    let isBox = document.querySelector('.WUFI9b');  // to get the whole box of btnParticipants
+    console.log({isBox: isBox});
+    
+    if(isBox == null){
+        btns[1].click();
+        return true;
+    }
+    else if(!isBox.classList.contains('qdulke'));  // to judge if the box is opened  //true: closed; false:open
+        return;
+
     btns[1].click();
     return true;
-    
 }
 
 function fetchParticipantsByDOM(){

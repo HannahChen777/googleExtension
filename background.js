@@ -1,4 +1,5 @@
 console.log('from background');
+console.log({background_pathname: location.host});
 
 //when clicking the 'start' button >> judge the url is googlemeet
 async function getUrlTab(){
@@ -31,6 +32,41 @@ async function isUrlGoogleMeet(url){
     console.log({isUrlGoogleMeet: isUrlGoogleMeet});
     return isUrlGoogleMeet;
 }
+
+async function slackAPI(){
+    const api = 'https://slack.com/api/chat.postMessage';
+    const token = '';
+    const headers = {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+    const data = {
+      'Channel': 'slack-api-test',
+      "blocks": [
+        {
+          "type": "section",
+          "text": {
+            "type": "plain_text",
+            "text": "Test123",
+            "emoji": true
+          }
+        }
+      ]
+    };
+    
+    fetch(api, {
+      method: 'POST',
+      headers: headers,
+      body: data
+    }).then(function(res){
+      return res.json();
+    }).then(function(data){
+      console.log(data);
+    }).catch(err => {
+      console.log(err);
+    })
+}
+
 
 chrome.runtime.onConnect.addListener(function(port){
     if(port.name == 'foregroundRequest'){

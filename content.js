@@ -1,4 +1,5 @@
 console.log("from foreground");
+console.log({foreground_pathname: location.host});
 
 var btnClick = document.getElementById('btn_click_start');
 
@@ -40,36 +41,6 @@ function showBtnSlack(){
   console.log(attributesOfBtnSlack.style.display);
 }
 
-function slackAPI(){
-  const api = 'https://slack.com/api/chat.postMessage';
-  const token = '';
-  const headers = {
-    'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json',
-    'Channel': 'slack-api-test'
-  }
-  const message = {
-    "blocks": [
-      {
-        "type": "section",
-        "text": {
-          "type": "plain_text",
-          "text": "Test123",
-          "emoji": true
-        }
-      }
-    ]
-  };
-  
-  fetch(api,{
-    method: 'POST',
-    headers: headers
-  }).then(function(res){
-    return res.json();
-  }).then(function(data){
-    console.log(data);
-  })
-}
 
 function createCheckBoxOfAbscentees(array){
 
