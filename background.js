@@ -32,12 +32,6 @@ async function isUrlGoogleMeet(url){
     return isUrlGoogleMeet;
 }
 
-function showBtnSlack(){
-    let btnSlack = document.querySelector('#btn_click_slack');
-    console.log('HiiiBtnSlack');
-    console.log(btnSlack);
-}
-
 chrome.runtime.onConnect.addListener(function(port){
     if(port.name == 'foregroundRequest'){
         console.log('received successfully from port \'foregroundRequest\'');

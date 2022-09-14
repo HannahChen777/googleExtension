@@ -40,6 +40,37 @@ function showBtnSlack(){
   console.log(attributesOfBtnSlack.style.display);
 }
 
+function slackAPI(){
+  const api = 'https://slack.com/api/chat.postMessage';
+  const token = 'xoxb-4072509661251-4072836747490-G9wGnELErZsheo3lKdbFbHgJ';
+  const headers = {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+    'Channel': 'slack-api-test'
+  }
+  const message = {
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "plain_text",
+          "text": "Test123",
+          "emoji": true
+        }
+      }
+    ]
+  };
+  
+  fetch(api,{
+    method: 'POST',
+    headers: headers
+  }).then(function(res){
+    return res.json();
+  }).then(function(data){
+    console.log(data);
+  })
+}
+
 function createCheckBoxOfAbscentees(array){
 
   var contentInDOM = document.getElementsByClassName('content'); //HTMLCollection
