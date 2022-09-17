@@ -44,6 +44,9 @@ function showBtnSlack(){
 
 function createCheckBoxOfAbscentees(array){
 
+  if(!array || array == [])
+  return;
+  
   var contentInDOM = document.getElementsByClassName('content'); //HTMLCollection
   
   let isForm = document.getElementById('form') || '';

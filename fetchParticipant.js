@@ -7,26 +7,23 @@
 function clickBtnOfParticipants(){
     console.log('clickBtnOfParticipants');
 
+    //judge if btn of showing all participants is existed
     let btns = document.getElementsByClassName('VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ JsuyRc boDUxc') || '';
-    if(!btns)
-        return;
+    if(!btns){
+        alert('can\'t find button of showParticipants');
+        return false;
+    }
 
     let isBox = document.querySelector('.WUFI9b');  // to get the whole box of btnParticipants
-    console.log({isBox: isBox});
-    
-    if(isBox == null){
+
+    // to judge if the box of showing all participants is turned on  //true: closed; false: opened
+    if(isBox == null || isBox.classList.contains('qdulke')){ 
         btns[1].click();
         return true;
     }
-    else if(!isBox.classList.contains('qdulke'));  // to judge if the box is opened  //true: closed; false:open
-        return;
-
-    btns[1].click();
-    return true;
 }
 
 function fetchParticipantsByDOM(){
-    console.log('fetchParticipantsByDOM');
     let knownStatus = [
         "No response",
         "Accepted",
@@ -48,7 +45,6 @@ function fetchParticipantsByDOM(){
         if(knownStatus.includes(statusOfParticipant)){
             console.log(statusOfParticipant);
             let participant = item.querySelector('.zSX24d .jKwXVe .zWGUib').innerText;
-            console.log(participant);
             abscentees.push(participant);
         };
     })
@@ -57,9 +53,10 @@ function fetchParticipantsByDOM(){
 }
 
 async function main(){
+    //need to revise next time
     let isBtn = await clickBtnOfParticipants();
-    fetchParticipantsByDOM();
+    let abscentees = fetchParticipantsByDOM();
+    return abscentees;
 }
 
-clickBtnOfParticipants()
-fetchParticipantsByDOM();
+main();
