@@ -1,13 +1,19 @@
 console.log("from foreground");
 console.log({foreground_pathname: location.host});
 
-var btnClick = document.getElementById('btn_click_start');
+var btnStartClick = document.getElementById('btn_click_start');
+var btnSlackClick = document.getElementById('btn_click_slack');
 
-btnClick.addEventListener('click', function(){
-  let portName = { name: "foregroundRequest" };
+const portName = { name: "foregroundRequest" };
+btnStartClick.addEventListener('click', function(){
   let portPassword = { password: 'getAbscentees' };
   connect(portName, portPassword);
 });
+
+btnSlackClick.addEventListener('click', function(){
+  let portPassword = { password: 'sendMessageToSlack' };
+  connect(portName, portPassword);
+})
 
 var connect = (portName, portPassword) => {
   var port = chrome.runtime.connect(portName);
@@ -20,13 +26,6 @@ var connect = (portName, portPassword) => {
 
       createCheckBoxOfAbscentees(abscenteesArray);
       showBtnSlack();
-
-      //let testHtml = document.all[0].outerHTML;
-      //console.log({testHtml: testHtml});
-      // let data = await fetchParticipantsByDOM();
-      // console.log('you got me');
-      // console.log(data);
-      //document.getElementById('data').innerText = ;
     }
     else if(msg.status == 'urlNotGoogleMeet'){
       document.getElementById('data').innerText = '這裡不4 google meet耶';
@@ -40,7 +39,6 @@ function showBtnSlack(){
   console.log('HiiiBtnSlack');
   console.log(attributesOfBtnSlack.style.display);
 }
-
 
 function createCheckBoxOfAbscentees(array){
 

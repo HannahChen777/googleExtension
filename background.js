@@ -33,9 +33,10 @@ async function isUrlGoogleMeet(url){
     return isUrlGoogleMeet;
 }
 
+//need to fix here
 async function slackAPI(){
     const api = 'https://slack.com/api/chat.postMessage';
-    const token = '';
+    const token = 'xoxb-4072509661251-4072836747490-TiBCGCa6adaXU4IyYStVWAbb';
     const headers = {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
@@ -67,13 +68,11 @@ async function slackAPI(){
     })
 }
 
-
 chrome.runtime.onConnect.addListener(function(port){
     if(port.name == 'foregroundRequest'){
         console.log('received successfully from port \'foregroundRequest\'');
         port.onMessage.addListener(async function(msg, sender, sendResponse){
             if(msg.password == 'getAbscentees'){
-                console.log('password is correct');
                 let tab = await getUrlTab();
                 if(!tab){
                     port.postMessage({ status: 'urlNotGoogleMeet'});
@@ -88,7 +87,9 @@ chrome.runtime.onConnect.addListener(function(port){
                         }
                     );
                 }
-            } 
+            } else if (msg.password == 'sendMessageToSlack') {
+              slackAPI();
+            }
         })
     }
 });
