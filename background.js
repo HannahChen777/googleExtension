@@ -36,7 +36,7 @@ async function isUrlGoogleMeet(url){
 //need to fix here
 async function slackAPI(){
     const api = 'https://slack.com/api/chat.postMessage';
-    const token = 'xoxb-4072509661251-4072836747490-TiBCGCa6adaXU4IyYStVWAbb';
+    const token = '';
     const headers = {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
