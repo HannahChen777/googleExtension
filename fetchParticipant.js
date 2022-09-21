@@ -60,3 +60,53 @@ async function main(){
 }
 
 main();
+
+// var myHeaders = new Headers();
+// myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+// myHeaders.append("Authorization", "Bearer xoxb-4072509661251-4072836747490-s3M1Vec6UlhRW1J0PfGg5Wbw");
+
+// var urlencoded = new URLSearchParams();
+// urlencoded.append("channel", "C0424F3KW2F");
+// urlencoded.append("blocks", "[\n      {\n        \"type\": \"section\",\n        \"text\": {\n          \"type\": \"plain_text\",\n          \"text\": \"Test123\",\n          \"emoji\": true\n        }\n      }\n    ]\n");
+
+// var requestOptions = {
+//   method: 'POST',
+//   headers: myHeaders,
+//   body: urlencoded,
+//   redirect: 'follow'
+// };
+
+// fetch("https://slack.com/api/chat.postMessage", requestOptions)
+//   .then(response => response.text())
+//   .then(result => console.log(result))
+//   .catch(error => console.log('error', error));
+
+async function slackAPIDarrell() {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer xoxb-4072509661251-4072836747490-s3M1Vec6UlhRW1J0PfGg5Wbw");
+    myHeaders.append("Content-Type", "application/json");
+  
+    var raw = JSON.stringify({
+      "channel": "C0424F3KW2F",
+      "blocks": [{
+        "type": "section",
+        "text": {
+          "type": "plain_text",
+          "text": "Test123",
+          "emoji": true
+        }
+      }]
+    });
+  
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+  
+    fetch("https://slack.com/api/chat.postMessage", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
